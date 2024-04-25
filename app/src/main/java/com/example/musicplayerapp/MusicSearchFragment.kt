@@ -18,17 +18,16 @@ import org.json.JSONObject
 
 class MusicSearchFragment : Fragment() {
     private val sharedViewModel: SharedViewModel by activityViewModels()
-
     private lateinit var binding : FragmentMusicSearchBinding
+
+    // Visit https://rapidapi.com/deezerdevs/api/deezer-1/ to get an API key.
+    private val apiKey = "REPLACE_WITH_YOUR_API_KEY"
 
     private lateinit var recyclerView : RecyclerView
     private lateinit var trackList : ArrayList<MusicTrack>
     private lateinit var searchView: SearchView
 
     private lateinit var recyclerAdapter: RecyclerAdapter
-
-    //Visit https://rapidapi.com/deezerdevs/api/deezer-1/ to get an API key.
-    private val apiKey = "REPLACE_WITH_YOUR_API_KEY"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

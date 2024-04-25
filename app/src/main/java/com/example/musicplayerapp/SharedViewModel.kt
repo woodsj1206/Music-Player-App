@@ -1,5 +1,6 @@
 package com.example.musicplayerapp
 
+import android.media.MediaPlayer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,8 +19,15 @@ class SharedViewModel : ViewModel() {
     private val _currentMusicTrack = MutableLiveData<String>()
     val currentMusicTrack: LiveData<String> get() = _currentMusicTrack
 
+    private val _mediaPlayer = MutableLiveData<MediaPlayer>()
+    val mediaPlayer: LiveData<MediaPlayer> get() = _mediaPlayer
+
     fun setMusicTracks(musicTracks: Map<String, JSONObject>) {
         _musicTracks.value = musicTracks
+    }
+
+    fun setMediaPlayer(mediaPlayer: MediaPlayer){
+        _mediaPlayer.value = mediaPlayer
     }
 
     fun setCurrentMusicTrack(currentMusicTrack: String) {

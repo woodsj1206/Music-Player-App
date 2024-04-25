@@ -17,19 +17,18 @@ import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.example.musicplayerapp.databinding.FragmentMusicInformationBinding
 
-class MusicInformationFragment : Fragment() {
+class MusicPreviewerFragment : Fragment() {
     private val sharedViewModel : SharedViewModel by activityViewModels()
-
     private lateinit var binding : FragmentMusicInformationBinding
+
+    // Visit https://rapidapi.com/deezerdevs/api/deezer-1/ to get an API key.
+    private val apiKey = "REPLACE_WITH_YOUR_API_KEY"
 
     private lateinit var mediaPlayer : MediaPlayer
     private lateinit var seekBar : SeekBar
 
     private  lateinit var  runnable : Runnable
     private lateinit var  handler : Handler
-
-    //Visit https://rapidapi.com/deezerdevs/api/deezer-1/ to get an API key.
-    private val apiKey = "REPLACE_WITH_YOUR_API_KEY"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +51,10 @@ class MusicInformationFragment : Fragment() {
         handler = Handler(Looper.getMainLooper())
 
         // Initialize MediaPlayer instance
-        mediaPlayer = MediaPlayer()
+        if(sharedViewModel.mediaPlayer.value == null){
+            mediaPlayer = MediaPlayer()
+            sharedViewModel.setMediaPlayer(mediaPlayer)
+        }
 
         setButtonIcon()
         initializeSeekbar()
@@ -64,7 +66,7 @@ class MusicInformationFragment : Fragment() {
                 populateDisplay(selectedMusicTrack)
 
                 val mediaURL = sharedViewModel.musicTracks.value?.get(selectedMusicTrack)?.getString("preview")?.toUri()
-                mediaPlayer.apply {
+                sharedViewModel.mediaPlayer.value?.apply {
                     // Reset MediaPlayer to its uninitialized state
                     reset()
 
@@ -89,20 +91,20 @@ class MusicInformationFragment : Fragment() {
         }
 
         binding.btnController.setOnClickListener {
-            if(mediaPlayer.isPlaying){
+            if(sharedViewModel.mediaPlayer.value!!.isPlaying){
                 // Pause audio playback
-                mediaPlayer.pause()
+                sharedViewModel.mediaPlayer.value?.pause()
             }
             else{
                 // Start audio playback
-                mediaPlayer.start()
+                sharedViewModel.mediaPlayer.value?.start()
             }
             setButtonIcon()
         }
     }
 
     private fun setButtonIcon(){
-        if(mediaPlayer.isPlaying){
+        if(sharedViewModel.mediaPlayer.value!!.isPlaying){
             binding.btnController.text = "Pause"
 
             // Get the drawable from the button's compound drawables
@@ -145,7 +147,7 @@ class MusicInformationFragment : Fragment() {
     private fun initializeSeekbar(){
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if(fromUser) mediaPlayer.seekTo(progress)
+                if(fromUser) sharedViewModel.mediaPlayer.value!!.seekTo(progress)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -156,13 +158,13 @@ class MusicInformationFragment : Fragment() {
 
         })
 
-        seekBar.max = mediaPlayer.duration
+        seekBar.max = sharedViewModel.mediaPlayer.value!!.duration
 
         runnable = Runnable{
-            seekBar.progress = mediaPlayer.currentPosition
+            seekBar.progress = sharedViewModel.mediaPlayer.value!!.currentPosition
             handler.postDelayed(runnable, 1000)
 
-            val playedTime = mediaPlayer.currentPosition/1000
+            val playedTime = sharedViewModel.mediaPlayer.value!!.currentPosition/1000
 
             if(playedTime < 10){
                 binding.tvCurrentTime.text = "0:0$playedTime"

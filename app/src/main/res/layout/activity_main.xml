@@ -19,7 +19,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fcvMusicInformationFragment"
-        android:name="com.example.musicplayerapp.MusicInformationFragment"
+        android:name="com.example.musicplayerapp.MusicPreviewerFragment"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

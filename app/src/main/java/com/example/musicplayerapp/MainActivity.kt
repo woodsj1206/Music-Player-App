@@ -4,7 +4,7 @@ Author: woodsj1206 (https://github.com/woodsj1206)
 Description: This app uses the DeezerAPI to showcase the top 100 global music tracks. Users can preview a selected track for 30 seconds.
 Course: CIS 436
 Date Created: 4/23/24
-Last Modified: 4/24/24
+Last Modified: 4/25/24
 */
 package com.example.musicplayerapp
 
