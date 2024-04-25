@@ -21,9 +21,6 @@ class MusicPreviewerFragment : Fragment() {
     private val sharedViewModel : SharedViewModel by activityViewModels()
     private lateinit var binding : FragmentMusicInformationBinding
 
-    // Visit https://rapidapi.com/deezerdevs/api/deezer-1/ to get an API key.
-    private val apiKey = "REPLACE_WITH_YOUR_API_KEY"
-
     private lateinit var mediaPlayer : MediaPlayer
     private lateinit var seekBar : SeekBar
 
