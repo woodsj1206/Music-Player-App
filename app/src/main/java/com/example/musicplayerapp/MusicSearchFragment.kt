@@ -44,6 +44,7 @@ class MusicSearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        trackList = ArrayList()
 
         // Check if music tracks are already available
         val musicTracks = sharedViewModel.musicTracks.value
@@ -87,7 +88,9 @@ class MusicSearchFragment : Fragment() {
             }
         }
 
-        recyclerAdapter.setFilteredList(filteredList)
+        if(filteredList.isNotEmpty()){
+            recyclerAdapter.setFilteredList(filteredList)
+        }
     }
 
     private fun getTopMusicTracks(callback: (Map<String, JSONObject>) -> Unit){
@@ -133,8 +136,6 @@ class MusicSearchFragment : Fragment() {
     private fun populateSearchView(musicTracks: Map<String, JSONObject>) {
         recyclerView = binding.rvTrackList
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        trackList = ArrayList()
 
         var i = 1
         for (track in musicTracks) {

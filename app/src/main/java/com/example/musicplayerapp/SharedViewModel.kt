@@ -22,16 +22,16 @@ class SharedViewModel : ViewModel() {
     private val _mediaPlayer = MutableLiveData<MediaPlayer>()
     val mediaPlayer: LiveData<MediaPlayer> get() = _mediaPlayer
 
-    fun setMusicTracks(musicTracks: Map<String, JSONObject>) {
-        _musicTracks.value = musicTracks
+    fun setCurrentMusicTrack(currentMusicTrack: String) {
+        _currentMusicTrack.value = currentMusicTrack
     }
 
     fun setMediaPlayer(mediaPlayer: MediaPlayer){
         _mediaPlayer.value = mediaPlayer
     }
 
-    fun setCurrentMusicTrack(currentMusicTrack: String) {
-        _currentMusicTrack.value = currentMusicTrack
+    fun setMusicTracks(musicTracks: Map<String, JSONObject>) {
+        _musicTracks.value = musicTracks
     }
 
     fun setSelectedMusicTrack(selectedMusicTrack: String) {

@@ -41,7 +41,7 @@ class RecyclerAdapter(private var trackList: ArrayList<MusicTrack>, private val 
         }
     }
 
-    public fun setFilteredList(filteredList: ArrayList<MusicTrack>){
+    fun setFilteredList(filteredList: ArrayList<MusicTrack>){
         this.trackList = filteredList
         notifyDataSetChanged()
     }

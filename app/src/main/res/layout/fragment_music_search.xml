@@ -8,7 +8,7 @@
     tools:context=".MusicSearchFragment">
 
     <LinearLayout
-        android:layout_width="393dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"

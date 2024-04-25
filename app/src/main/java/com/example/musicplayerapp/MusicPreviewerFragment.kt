@@ -103,47 +103,6 @@ class MusicPreviewerFragment : Fragment() {
         }
     }
 
-    private fun setButtonIcon(){
-        if(sharedViewModel.mediaPlayer.value!!.isPlaying){
-            binding.btnController.text = "Pause"
-
-            // Get the drawable from the button's compound drawables
-            val drawable = ContextCompat.getDrawable(requireContext(), android.R.drawable.ic_media_pause)
-
-            // Apply a color filter to change the tint
-            drawable?.colorFilter = PorterDuffColorFilter(ContextCompat.getColor(requireContext(), R.color.app_theme_color), PorterDuff.Mode.SRC_IN)
-
-            // Set the compound drawable with the updated tint to the button
-            binding.btnController.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
-        }
-        else{
-            binding.btnController.text = "Play"
-
-            // Get the drawable from the button's compound drawables
-            val drawable = ContextCompat.getDrawable(requireContext(), android.R.drawable.ic_media_play)
-
-            // Apply a color filter to change the tint
-            drawable?.colorFilter = PorterDuffColorFilter(ContextCompat.getColor(requireContext(), R.color.app_theme_color), PorterDuff.Mode.SRC_IN)
-
-            // Set the compound drawable with the updated tint to the button
-            binding.btnController.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
-
-        }
-    }
-
-    private fun populateDisplay(selectedMusicTrack: String){
-        // Retrieve the corresponding JSON object from music tracks map
-        val musicTracks = sharedViewModel.musicTracks.value
-        val trackInfo = musicTracks?.get(selectedMusicTrack)
-
-        binding.tvSongName.text = trackInfo?.getString("title")
-        binding.tvAlbumName.text = trackInfo?.getJSONObject("album")?.getString("title")
-        binding.tvArtist.text = trackInfo?.getJSONObject("artist")?.getString("name")
-
-        binding.ivAlbumCover.setImageResource(R.drawable.music_player_app_placeholder)
-        Glide.with(requireContext()).load(trackInfo?.getJSONObject("album")?.getString("cover_big")).into(binding.ivAlbumCover)
-    }
-
     private fun initializeSeekbar(){
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -176,4 +135,45 @@ class MusicPreviewerFragment : Fragment() {
         handler.postDelayed(runnable, 1000)
 
     }
+
+    private fun populateDisplay(selectedMusicTrack: String){
+        // Retrieve the corresponding JSON object from music tracks map
+        val musicTracks = sharedViewModel.musicTracks.value
+        val trackInfo = musicTracks?.get(selectedMusicTrack)
+
+        binding.tvSongName.text = trackInfo?.getString("title")
+        binding.tvAlbumName.text = trackInfo?.getJSONObject("album")?.getString("title")
+        binding.tvArtist.text = trackInfo?.getJSONObject("artist")?.getString("name")
+
+        binding.ivAlbumCover.setImageResource(R.drawable.music_player_app_placeholder)
+        Glide.with(requireContext()).load(trackInfo?.getJSONObject("album")?.getString("cover_big")).into(binding.ivAlbumCover)
+    }
+
+    private fun setButtonIcon(){
+        if(sharedViewModel.mediaPlayer.value!!.isPlaying){
+            binding.btnController.text = "Pause"
+
+            // Get the drawable from the button's compound drawables
+            val drawable = ContextCompat.getDrawable(requireContext(), android.R.drawable.ic_media_pause)
+
+            // Apply a color filter to change the tint
+            drawable?.colorFilter = PorterDuffColorFilter(ContextCompat.getColor(requireContext(), R.color.app_theme_color), PorterDuff.Mode.SRC_IN)
+
+            // Set the compound drawable with the updated tint to the button
+            binding.btnController.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
+        }
+        else{
+            binding.btnController.text = "Play"
+
+            // Get the drawable from the button's compound drawables
+            val drawable = ContextCompat.getDrawable(requireContext(), android.R.drawable.ic_media_play)
+
+            // Apply a color filter to change the tint
+            drawable?.colorFilter = PorterDuffColorFilter(ContextCompat.getColor(requireContext(), R.color.app_theme_color), PorterDuff.Mode.SRC_IN)
+
+            // Set the compound drawable with the updated tint to the button
+            binding.btnController.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
+        }
+    }
+
 }

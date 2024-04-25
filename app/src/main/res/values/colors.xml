@@ -3,7 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="text_color">#FFFFFF</color>
-    <color name="music_information_highlight">#41FFFFFF</color>
+    <color name="music_information_highlight">#7CFFFFFF</color>
     <color name="button_color">#FFFFFF</color>
     <color name="app_theme_color">#8B22FE</color>
     <color name="slider_progress_color">#FFFFFF</color>
